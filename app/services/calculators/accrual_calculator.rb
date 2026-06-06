@@ -12,10 +12,10 @@ module Calculators
       relevant_months = PeriodMonthFilter.months_for_period(months, period)
 
       # Step 2: Sum proratas to get months_worked
-      months_worked = relevant_months.sum { |m| m[:prorata] }
+      months_worked = relevant_months.sum { |m| m[:prorata] }.round(2)
 
       # Step 3: Days acquired = 2.5 per month, prorated for partial months
-      days_acquired = relevant_months.sum { |m| DAYS_PER_MONTH * m[:prorata] }
+      days_acquired = months_worked * DAYS_PER_MONTH
 
       # Step 4: Total salaries (needed later for the 10% valuation method)
       total_salaries = relevant_months.sum { |m| m[:gross_salary] }

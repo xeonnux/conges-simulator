@@ -1,0 +1,29 @@
+<h2 class="text-xl font-semibold mb-4">Périodes de congés</h2>
+<%= turbo_frame_tag "periods_table" do %>
+  <div class="overflow-x-auto mb-8">
+    <table class="w-full border-collapse border">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border px-4 py-2 text-left">Période</th>
+          <th class="border px-4 py-2 text-right">Mois travaillés</th>
+          <th class="border px-4 py-2 text-right">Jours acquis</th>
+          <th class="border px-4 py-2 text-right">Maintien de salaire</th>
+          <th class="border px-4 py-2 text-right">Méthode 10%</th>
+          <th class="border px-4 py-2 text-right font-bold">Valeur retenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% periods.each do |period| %>
+          <tr>
+            <td class="border px-4 py-2"><%= l period.start_date %> → <%= l period.end_date %></td>
+            <td class="border px-4 py-2 text-right"><%= number_with_precision(period.months_worked, precision: 2) %></td>
+            <td class="border px-4 py-2 text-right"><%= number_with_precision(period.days_acquired, precision: 2) %></td>
+            <td class="border px-4 py-2 text-right"><%= number_to_currency(period.maintien_value, unit: "€", format: "%n %u") %></td>
+            <td class="border px-4 py-2 text-right"><%= number_to_currency(period.ten_percent_value, unit: "€", format: "%n %u") %></td>
+            <td class="border px-4 py-2 text-right font-bold"><%= number_to_currency(period.leave_value, unit: "€", format: "%n %u") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

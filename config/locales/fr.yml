@@ -1,0 +1,19 @@
+fr:
+  date:
+    formats:
+      long: "%e %B %Y"
+      month_year: "%B %Y"
+  activerecord:
+    models:
+      simulation: Simulation
+    attributes:
+      simulation:
+        start_date: "Date de début"
+        end_date: "Date de fin"
+        monthly_salary: "Salaire brut mensuel"
+    errors:
+      models:
+        simulation:
+          attributes:
+            end_date:
+              must_be_after_start: "doit être postérieure à la date de début"

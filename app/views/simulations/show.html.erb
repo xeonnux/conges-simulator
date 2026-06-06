@@ -1,0 +1,15 @@
+<div class="max-w-6xl mx-auto p-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-bold">Résultats de la simulation</h1>
+    <%= link_to "Nouvelle simulation", new_simulation_path, class: "text-blue-600 hover:underline" %>
+  </div>
+
+  <div class="bg-gray-50 rounded p-4 mb-8 grid grid-cols-3 gap-4">
+    <div><strong>Début :</strong> <%= l @simulation.start_date, format: :long %></div>
+    <div><strong>Fin :</strong> <%= l @simulation.end_date, format: :long %></div>
+    <div><strong>Salaire brut :</strong> <%= number_to_currency(@simulation.monthly_salary, unit: "€", format: "%n %u") %></div>
+  </div>
+
+  <%= render 'periods_table', periods: @periods %>
+  <%= render 'months_table', months: @months %>
+</div>

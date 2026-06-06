@@ -1,0 +1,39 @@
+<%= form_with model: simulation,
+              data: { controller: "form-validation",
+                      action: "submit->form-validation#validate" } do |f| %>
+
+  <% if simulation.errors.any? %>
+    <div class="bg-red-50 border border-red-200 rounded p-4 mb-6">
+      <ul>
+        <% simulation.errors.full_messages.each do |msg| %>
+          <li class="text-red-700"><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="space-y-4">
+    <div>
+      <%= f.label :start_date, "Date de début du contrat", class: "block font-medium mb-1" %>
+      <%= f.date_field :start_date, class: "w-full border rounded px-3 py-2",
+          data: { form_validation_target: "startDate" } %>
+    </div>
+
+    <div>
+      <%= f.label :end_date, "Date de fin du contrat", class: "block font-medium mb-1" %>
+      <%= f.date_field :end_date, class: "w-full border rounded px-3 py-2",
+          data: { form_validation_target: "endDate" } %>
+    </div>
+
+    <div>
+      <%= f.label :monthly_salary, "Salaire brut mensuel (€)", class: "block font-medium mb-1" %>
+      <%= f.number_field :monthly_salary, step: 0.01, min: 200, max: 1200,
+          class: "w-full border rounded px-3 py-2",
+          data: { form_validation_target: "salary" } %>
+      <p class="text-sm text-gray-500 mt-1">Entre 200 € et 1 200 €</p>
+    </div>
+
+    <%= f.submit "Lancer la simulation", class: "w-full bg-blue-600 text-white py-3 rounded font-medium hover:bg-blue-700 mt-6",
+        data: { form_validation_target: "submitBtn" } %>
+  </div>
+<% end %>
