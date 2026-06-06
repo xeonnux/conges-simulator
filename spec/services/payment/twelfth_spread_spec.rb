@@ -27,11 +27,10 @@ RSpec.describe Payment::TwelfthSpread do
     expect(payments[idx]).to be_within(0.01).of(expected)
   end
 
-  it 'stacks two 1/12th streams when they overlap in June 2025' do
+  it 'pays only P2 1/12th in June 2025 (P1 spread is already complete)' do
     idx = scenario[:months].index { |m| m[:year] == 2025 && m[:month] == 6 }
-    p1_twelfth = scenario[:periods][0].leave_value / 12.0
     p2_twelfth = scenario[:periods][1].leave_value / 12.0
-    expect(payments[idx]).to be_within(0.01).of(p1_twelfth + p2_twelfth)
+    expect(payments[idx]).to be_within(0.01).of(p2_twelfth)
   end
 
   it 'dumps all remaining balances on the last month' do
