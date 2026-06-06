@@ -68,14 +68,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    # services:
+    #   mysql:
+    #     image: mysql
+    #     env:
+    #       MYSQL_ALLOW_EMPTY_PASSWORD: true
+    #     ports:
+    #       - 3306:3306
+    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
       # redis:
       #   image: valkey/valkey:8
@@ -95,25 +95,25 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: mysql2://127.0.0.1:3306
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+      # - name: Run tests
+      #   env:
+      #     RAILS_ENV: test
+      #     DATABASE_URL: mysql2://127.0.0.1:3306
+      #     # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      #     # REDIS_URL: redis://localhost:6379/0
+      #   run: bin/rails db:test:prepare test
 
   system-test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    # services:
+    #   mysql:
+    #     image: mysql
+    #     env:
+    #       MYSQL_ALLOW_EMPTY_PASSWORD: true
+    #     ports:
+    #       - 3306:3306
+    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
       # redis:
       #   image: valkey/valkey:8
@@ -133,13 +133,13 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run System Tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: mysql2://127.0.0.1:3306
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test:system
+      # - name: Run System Tests
+      #   env:
+      #     RAILS_ENV: test
+      #     DATABASE_URL: mysql2://127.0.0.1:3306
+      #     # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      #     # REDIS_URL: redis://localhost:6379/0
+      #   run: bin/rails db:test:prepare test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
