@@ -9,27 +9,27 @@ module Payment
         closes_normally = (period.end_date.month == 5 && period.end_date.day == 31)
 
         if closes_normally && !is_terminal
-          # Period closed normally on May 31 → spread 1/12th over next 12 months
-          twelfth = period.leave_value / 12.0
-          start_of_spread = period.end_date + 1  # June 1
+          twelfth = (period.leave_value / 12.0).round(2)
+          start_of_spread = period.end_date + 1
+          paid_so_far = 0.0
 
           12.times do |i|
-            spread_date = start_of_spread >> i  # >> advances by i months
+            spread_date = start_of_spread >> i
             idx = months.index { |m| m[:year] == spread_date.year && m[:month] == spread_date.month }
 
-            if idx && idx <= last_month_idx
-              payments[idx] += twelfth
-            else
-              # Month is beyond contract end → dump remaining on last month
-              remaining = twelfth * (12 - i)
-              payments[last_month_idx] += remaining
+            if idx.nil? || idx > last_month_idx
+              payments[last_month_idx] += (period.leave_value - paid_so_far).round(2)
               break
+            elsif i == 11 || idx == last_month_idx
+              payments[idx] += (period.leave_value - paid_so_far).round(2)
+              break
+            else
+              payments[idx] += twelfth
+              paid_so_far += twelfth
             end
           end
         else
-          # Terminal period OR period not yet closed:
-          # Pay the full value on the last month
-          payments[last_month_idx] += period.leave_value
+          payments[last_month_idx] += period.leave_value.round(2)
         end
       end
 
