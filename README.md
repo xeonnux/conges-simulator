@@ -23,24 +23,38 @@ Node.js (pour le pipeline assets Tailwind / Stimulus)
 Bundler
 
 Installation
-
-git clone git@github.com:<your-username>/conges_simulator.git
+```bash
+git clone git@github.com:xeonnux/conges_simulator.git
 cd conges_simulator
+```
 
 # Installer les dépendances
+
+```bash
 bundle install
+```
 
 # Configurer la base de données
 # → Éditer config/database.yml avec vos identifiants MariaDB
+```bash
 rails db:create
 rails db:migrate
+```
 
 # Lancer les tests
+
+```bash
 bundle exec rspec
-
+```
 # Lancer le serveur
+```bash
 rails server
-
+```
+ ou (pour le pipeline Tailwind + Stimulus)
+ 
+```bash
+bin/dev
+``` 
 L'application est accessible à http://localhost:3000.
 
 ***
@@ -166,18 +180,22 @@ README finalisé
 Lancer les tests
 
 # Suite complète
-bundle exec rspec
+`bundle exec rspec`
 
 # Par sprint / couche
+```bash
 bundle exec rspec spec/models/
 bundle exec rspec spec/services/calculators/
 bundle exec rspec spec/services/payment/
 bundle exec rspec spec/services/simulator_service_spec.rb
 bundle exec rspec spec/services/golden_reference_spec.rb  # invariant inter-modes
 bundle exec rspec spec/requests/
+```
 
 # Avec output détaillé
+```bash
 bundle exec rspec --format documentation
+```
 
 ***
 Documentation complémentaire
