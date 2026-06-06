@@ -25,9 +25,9 @@ class SimulatorService
     end
 
     # Calculate all 3 payment modes
-    payments_a = Payment::LumpSum.call(periods: periods, months: months, simulation: simulation)
-    payments_b = Payment::TwelfthSpread.call(periods: periods, months: months, simulation: simulation)
-    payments_c = Payment::MonthlyTenth.call(periods: periods, months: months, simulation: simulation)
+    payment_lump_sum = Payment::LumpSum.call(periods: periods, months: months, simulation: simulation)
+    payment_twelfth_spread = Payment::TwelfthSpread.call(periods: periods, months: months, simulation: simulation)
+    payment_monthly_tenth = Payment::MonthlyTenth.call(periods: periods, months: months, simulation: simulation)
 
     # ── Step 2: Persist to DB (the only place ActiveRecord is touched) ──
 
@@ -58,9 +58,9 @@ class SimulatorService
           month:        m[:month],
           prorata:      m[:prorata],
           gross_salary: m[:gross_salary],
-          leave_mode_a: payments_a[idx],
-          leave_mode_b: payments_b[idx],
-          leave_mode_c: payments_c[idx]
+          leave_mode_a: payment_lump_sum[idx],
+          leave_mode_b: payment_twelfth_spread[idx],
+          leave_mode_c: payment_monthly_tenth[idx]
         )
       end
     end

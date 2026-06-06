@@ -1,6 +1,6 @@
 module Calculators
   class ValuationCalculator
-    DAYS_PER_MONTH = 22.0 # This is a constant that is global and never changes.
+    DAYS_PER_MONTH = 22.0
 
     def self.maintien_de_salaire(monthly_salary:, days_acquired:)
       (monthly_salary / DAYS_PER_MONTH) * days_acquired
