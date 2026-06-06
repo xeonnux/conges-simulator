@@ -46,16 +46,19 @@ L'application est accessible à http://localhost:3000.
 ***
 Stack technique
 
-Composant	Choix
-Framework	Rails 8.1.1
-Langage	Ruby >= 3.2
-Base de données	MariaDB (mysql2)
-Frontend	Hotwire (Turbo + Stimulus)
-CSS	Tailwind CSS
-Tests	RSpec + FactoryBot + Shoulda Matchers
-	***
+| Composant | Choix |
+| --- | --- |
+| Framework | Rails 8.1.1 |
+| Langage | Ruby >= 3.2 |
+| Base de données | MariaDB (mysql2) |
+| Frontend | Hotwire (Turbo + Stimulus) |
+| CSS | Tailwind CSS |
+| Tests | RSpec + FactoryBot + Shoulda Matchers |
+
+***
 Architecture
 
+```
 app/
 ├── models/                        # Persistence + validations (thin)
 │   ├── simulation.rb              # ActiveRecord — paramètres du contrat
@@ -85,6 +88,7 @@ app/
 └── views/simulations/
     ├── new.html.erb + _form.html.erb
     └── show.html.erb + _periods_table.html.erb + _months_table.html.erb
+```
 
 Principe clé : tous les calculateurs et services de paiement opèrent sur des OpenStruct et Hash — jamais d'ActiveRecord. Seul SimulatorService fait le pont entre la couche de calcul et la base de données.
 
@@ -178,10 +182,12 @@ bundle exec rspec --format documentation
 ***
 Documentation complémentaire
 
-Document	Description
-docs/PLANNING_AGILE.md	User stories, critères d'acceptation, backlog priorisé
-docs/REFERENCE_DATA.md	Données de référence extraites du Google Sheet + analyse des formules
-	***
+| Document | Description |
+| --- | --- |
+| `docs/PLANNING_AGILE.md` | User stories, critères d'acceptation, backlog priorisé |
+| `docs/REFERENCE_DATA.md` | Données de référence extraites du Google Sheet + analyse des formules |
+
+***
 Licence
 
 Projet réalisé dans le cadre d'un exercice technique.
